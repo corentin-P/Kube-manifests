@@ -20,8 +20,8 @@ network:
     wlp6s0: # nom de la carte wifi
       optional: true
       access-points:
-        "Telephone de corentin": # nom du wifi
-          password: "telcoco1" # mot de passe du wifi
+        "<nom du wifi>": # nom du wifi
+          password: "<mot de passe>" # mot de passe du wifi
       dhcp4: true
 ```
 
