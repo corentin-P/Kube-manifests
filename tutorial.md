@@ -27,6 +27,8 @@ network:
 
 Puis taper : `sudo netplan apply`
 
+Pour plus d'information, regarder ce [tuto](https://linuxconfig.org/ubuntu-20-04-connect-to-wifi-from-command-line)
+
 ## 4. Configurer et démarrer le serveur SSH 
 S’il n’est pas installé : `sudo apt install openssh-server`
 
