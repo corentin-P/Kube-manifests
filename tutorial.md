@@ -70,13 +70,26 @@ Push le projet sur git : `git push origin main`
 
 
 ## 8. Configurer l’adresse IP pour le switch
+
+Le switch a pour adresse IP `192.168.0.1`.
+
+### Sur windows
+Aller dans les paramètres et configurer le réseau et l'adresse comme l'exemple ci dessous : 
+![Exemple de configuration](assets/Ip_config_windows.png)
+
+### Sur linux : 
+
 `ip a` -> vérifier qu’aucune adresse n’est configurée pour l’interface “eth0”
 
 `ip link set eth0 up` -> activer l’interface ethernet
 
 `ip addr add <adresse_IPv4/mask> dev eth0 `
 
+
 ## 9. Voir tous les ordinateurs connectés sur le switch 
+
+Depuis linux ou WSL : 
+
 Installer nmap : `sudo apt install nmap`
 
 Trouver l’adresse IPv4 du réseau et le masque (pour nous 192.168.0.0/24)
