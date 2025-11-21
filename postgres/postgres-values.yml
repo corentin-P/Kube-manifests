@@ -1,5 +1,7 @@
 fullnameOverride: "postgresql"
 global:
+  security:
+    allowInsecureImages: true
   postgresql:
     auth:
       postgresPassword: "password"
