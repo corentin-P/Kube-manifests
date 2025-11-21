@@ -1,0 +1,16 @@
+fullnameOverride: "postgresql"
+global:
+  security:
+    allowInsecureImages: true
+  postgresql:
+    auth:
+      postgresPassword: "password"
+    service:
+      ports:
+        postgresql: "5432"
+
+image:
+  registry: hub.docker.com
+  repository: bitnamicharts/postgresql
+  # tag: 18.1.11
+  digest: "sha256:f8f1f7241bd204bbbeabfa0dfb6b1c695e77e40f54649af7b2051465cfc74799"

@@ -98,8 +98,22 @@ Trouver l’adresse IPv4 du réseau et le masque (pour nous 192.168.0.0/24)
 
 taper : “nmap -sn <ip_reseau/masque>” qui devient “nmap -sn 192.168.0.0/24” 
 
-## 10. Installer k3s (version légère de k8s) 
-Taper `curl -sfL https://get.k3s.io | sh -`
+## 10. Partager le réseau internet wifi d'un pc sur le réseau ethernet
+
+Aller dans le panneau de configuration windows, dans `Réseau et internet / Centre Réseau et partage / Modifier les paramètres de la carte` puis double click sur le réseau wifi, propriétés et onglet partage. 
+
+⚠️ Le PC prendra directement l'adresse IP 192.168.137.1 donc il faut d'abord configurer l'IP du switch et de l'autre PC sur ce même réseau (Switch 192.168.137.2 et l'autre pc sur 192.168.137.3)
+
+## 11. Installer k3s (version légère de k8s) et helm
 
 Voir la doc ici : https://docs.k3s.io/quick-start
+
+```sh
+curl -sfL https://get.k3s.io | sh -
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+export KUBECONFIG=~/.kube/config
+sudo apt-get update
+sudo apt-get install helm
+```
+
 

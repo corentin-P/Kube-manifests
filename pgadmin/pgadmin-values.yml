@@ -1,0 +1,47 @@
+image:
+  registry: hub.docker.com
+  repository: dpage/pgadmin4
+  tag: 9.8
+
+service:
+  type: NodePort
+  nodePort: 32000
+
+serverDefinitions:
+  enabled: true
+  servers:
+    postgres:
+      Name: "Server 1"
+      Group: "Servers"
+      Port: 5432
+      Username: "postgres"
+      Host: "postgresql.default.svc.cluster.local"
+      MaintenanceDB: "postgres"
+
+resources:
+  limits:
+    cpu: 2
+    memory: 1Gi
+  requests:
+    cpu: 2
+    memory: 1Gi
+
+env:
+  email: coco@coco.fr
+  password: password
+
+persistentVolume:
+  size: 1Gi
+
+livenessProbe:
+  initialDelaySeconds: 60
+  timeoutSeconds: 30
+  successThreshold: 1
+  failureThreshold: 10
+  periodSeconds: 10
+readinessProbe:
+  initialDelaySeconds: 60
+  timeoutSeconds: 30
+  successThreshold: 1
+  failureThreshold: 10
+  periodSeconds: 10
