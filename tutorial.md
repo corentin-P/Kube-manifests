@@ -116,4 +116,9 @@ sudo apt-get update
 sudo apt-get install helm
 ```
 
+## 12. Installer Postgres
 
+```sh
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install postgres bitnami/postgresql -f postgres-values.yml --version 18.1.10
+```
