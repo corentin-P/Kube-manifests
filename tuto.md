@@ -5,38 +5,25 @@ Ubuntu 24.02: https://ubuntu.com/download/server
 
 ## 2. Boot the PC (raspberry) and select the SSH server option
 
-## 3. Configure WIFI
-Find the name of the Wi-Fi interface: run 
-```sh
-ip a
-``` 
-and look for the interface starting with `wl`.
+## 3. Share the Wi-Fi internet connection of the PC to the ethernet network (for the raspberry)
 
-Edit (or create) the file:
-`/etc/netplan/01-network-manager-all.yaml`
+⚠️ The PC will automatically take IP 192.168.137.1.
+Configure the switch and the raspberry on the same network before enabling sharing:
 
-```yaml
-network:
-  ethernets:
-    eth0:
-      dhcp4: true
-      optional: true
-  version: 2
-  wifis:
-    wlp6s0: # Wi-Fi interface name
-      optional: true
-      access-points:
-        "<wifi name>": # Wi-Fi name
-          password: "<password>" # Wi-Fi password
-      dhcp4: true
-```
+| device | IP adress | How | 
+| ------ | --------- | --- |
+| Switch | 192.168.137.2 | Access the web UI on 192.168.0.1 and change it |
+| Raspberry | 192.168.137.3 | ip addr add 192.168.137.3/24 dev eth0 |
 
-Then run: 
-```sh
-sudo netplan apply
-```
+Then, On your windows computer: 
+Go to:
 
-For more information, see this [tutorial](https://linuxconfig.org/ubuntu-20-04-connect-to-wifi-from-command-line)
+Control Panel → Network and Internet → Network and Sharing Center → Change adapter settings
+Then double-click the Wi-Fi network → Properties → Sharing tab.
+
+Then share the wifi connection with the ethernet network. 
+
+![example](./assets/share-wifi.png)
 
 ## 4. Configure and start the SSH server
 
@@ -63,14 +50,14 @@ sudo systemctl start ssh
 
 ## 5. Connect to the raspberry from another PC via SSH 
 
-Find the PC’s IP address and take the Wi-Fi IP if connected via Wi-Fi.
-```sh
-ip a 
-```
-
 Open a Linux terminal (or WSL) and enter: (if you use port 22, no need to specify it)
 ```sh
 ssh -p <port> <user>@IP
+```
+
+For us, it will be like
+```sh
+ssh <user>@192.168.137.3
 ```
 
 **You can now access the raspberry from your PC and you don't need to be on the raspberry for the next steps, just keep your terminal with ssh connections.**
@@ -86,7 +73,7 @@ sudo apt install git-all
 
 [Add](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) the SSH key to GitHub
 
-Create a repository in the project directory:
+### Create a repository in the project directory:
 ```sh
 git init -b main
 ```
@@ -105,34 +92,8 @@ Push the project:
 ```sh
 git push origin main
 ```
-## 7. Configure the IP address for the switch
 
-The switch uses the IP address: 192.168.0.1.
-
-### On Windows
-
-Go to the network settings and configure the network as shown in the example image
-![Config example](assets/Ip_config_windows.png)
-
-### On Linux
-
-Check that “eth0” has no configured IP:
-```sh
-ip a
-```
-
-Activate the ethernet interface:
-```sh
-ip link set eth0 up
-```
-
-Assign a manual IP:
-```sh
-ip addr add <IPv4_address/mask> dev eth0
-```
-
-
-## 8. See all computers connected to the switch
+## 7. See all computers connected to the switch
 
 From Linux or WSL:
 
@@ -153,21 +114,9 @@ Example:
 nmap -sn 192.168.0.0/24
 ```
 
-## 9. Share the Wi-Fi internet connection to the ethernet network
 
-On Windows:
-Go to:
-Control Panel → Network and Internet → Network and Sharing Center → Change adapter settings
-Then double-click the Wi-Fi network → Properties → Sharing tab.
 
-⚠️ The PC will automatically take IP 192.168.137.1.
-Configure the switch and the other PC on the same network before enabling sharing:
-
-Switch: 192.168.137.2
-
-Other PC: 192.168.137.3
-
-## 10. Install k3s (lightweight Kubernetes) and Helm
+## 8. Install k3s (lightweight Kubernetes) and Helm
 
 [Documentation](https://docs.k3s.io/quick-start)
 
@@ -179,11 +128,11 @@ sudo apt-get update
 sudo apt-get install helm
 ```
 
-## 11. Install k9s
+## 9. Install k9s
 
-K9s is a great tool but I didn't manage to use it on arm64 architecture (raspberry)
+K9s is a great tool to see what happened on the k3s cluster but I didn't manage to use it on arm64 architecture (raspberry)
 
-## 12. Install PostgreSQL and pgAdmin
+## 10. Install PostgreSQL and pgAdmin
 
 ```sh
 helm repo add bitnami https://charts.bitnami.com/bitnami
