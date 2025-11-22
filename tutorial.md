@@ -116,9 +116,14 @@ sudo apt-get update
 sudo apt-get install helm
 ```
 
-## 12. Installer Postgres
+## 12. Installer k9s
+
+## 13. Installer Postgres et pgAdmin
 
 ```sh
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install postgres bitnami/postgresql -f postgres-values.yml --version 18.1.10
+helm repo add runix https://helm.runix.net
+kubectl apply -f postgresql-credentials-secret.yml
+helm install pgadmin4 runix/pgadmin4 -f pgadmin-values.yml --version 1.50.0
 ```
