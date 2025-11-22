@@ -10,7 +10,7 @@ global:
         postgresql: "5432"
 
 image:
-  registry: hub.docker.com
-  repository: bitnamicharts/postgresql
+  registry: registry-1.docker.io
+  repository: bitnamilegacy/postgresql:17.6.0
   # tag: 18.1.11
-  digest: "sha256:f8f1f7241bd204bbbeabfa0dfb6b1c695e77e40f54649af7b2051465cfc74799"
+  digest: "sha256:94c148526e3de5a414cc53f75701ed0d57ff3719466851723512fcbd1182522a"
