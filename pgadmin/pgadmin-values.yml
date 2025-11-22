@@ -1,5 +1,5 @@
 image:
-  registry: hub.docker.com
+  registry: registry-1.docker.io
   repository: dpage/pgadmin4
   tag: 9.8
 
